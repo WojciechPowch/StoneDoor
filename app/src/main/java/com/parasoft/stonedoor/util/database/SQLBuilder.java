@@ -10,10 +10,13 @@ public class SQLBuilder {
     private final String CLOSE_QUOTE = ")";
     private final String COMMA = ", ";
     private final String SPACE = " ";
+    private final String CREATE_TABLE = "CREATE TABLE";
 
     public String buildCreateTableQuery(String tableName, List<FieldConfig> fields) {
         try {
             initStringBuilder();
+            initCreateTableQuery(tableName);
+            buildFieldsQuery(fields);
             return queryStringBuilder.toString();
         } finally {
             cleanQueryStringBuilder();
@@ -22,6 +25,12 @@ public class SQLBuilder {
 
     private void initStringBuilder() {
         this.queryStringBuilder = new StringBuilder();
+    }
+
+    private void initCreateTableQuery(String tableName) {
+        queryStringBuilder.append(CREATE_TABLE);
+        queryStringBuilder.append(SPACE);
+        queryStringBuilder.append(tableName);
     }
 
     private void buildFieldsQuery(List<FieldConfig> fields) {

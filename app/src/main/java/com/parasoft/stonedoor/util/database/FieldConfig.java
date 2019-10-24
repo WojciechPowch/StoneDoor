@@ -8,15 +8,17 @@ public class FieldConfig {
         return fieldName;
     }
 
-    public void setFieldName(String fieldName) {
+    public FieldConfig setFieldName(String fieldName) {
         this.fieldName = fieldName;
+        return this;
     }
 
     public String getFieldDataType() {
         return fieldDataType;
     }
 
-    public void setFieldDataType(String fieldDataType) {
+    public FieldConfig setFieldDataType(String fieldDataType) {
         this.fieldDataType = fieldDataType;
+        return this;
     }
 }
