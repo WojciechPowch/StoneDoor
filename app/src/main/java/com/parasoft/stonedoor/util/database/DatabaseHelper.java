@@ -9,6 +9,7 @@ import java.util.List;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
     private Context context;
+    private SQLBuilder sqlBuilder;
 
     public DatabaseHelper(Context context) {
         super(context,
@@ -16,6 +17,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 null,
                 DatabaseVariables.DATABASE_VERSION.getValue());
         this.context = context;
+        this.sqlBuilder = new SQLBuilder();
     }
 
     @Override
@@ -34,7 +36,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     private String buildCreateTableQuery() {
         List<FieldConfig> fieldConfigs = buildFieldsConfig();
-        SQLBuilder sqlBuilder = new SQLBuilder();
         return sqlBuilder.buildCreateTableQuery(DatabaseVariables.USER_TABLE.getValue(), fieldConfigs);
     }
 
@@ -48,6 +49,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        try {
+            System.out.println("On database upgrade");
+            String dropTableQuery = buildDropTableQuery();
+            db.execSQL(dropTableQuery);
+            onCreate(db);
+        } catch (Exception e) {
+            System.out.println("Error while updating DataBase");
+        }
+    }
 
+    private String buildDropTableQuery() {
+        return sqlBuilder.createDropTableQuery(DatabaseVariables.USER_TABLE.getValue());
     }
 }
