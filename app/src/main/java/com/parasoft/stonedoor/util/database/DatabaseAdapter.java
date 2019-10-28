@@ -36,9 +36,29 @@ public class DatabaseAdapter {
         return result;
     }
 
+    public int delete(String tableName, Map<String, String> conditions) {
+        SQLiteDatabase database = databaseHelper.getWritableDatabase();
+        SQLiteWhereArgs conditionObject = new SQLiteWhereArgs(conditions);
+        conditionObject.buildConfiguration();
+        String query = conditionObject.getQuery();
+        String[] whereArgs = conditionObject.getArguments();
+        return database.delete(tableName, query, whereArgs);
+    }
+
+    public int update(String tableName, InsertData insertData, Map<String, String> conditions) {
+        SQLiteDatabase database = databaseHelper.getWritableDatabase();
+        ContentValues contentValues = insertData.getContentValues();
+        SQLiteWhereArgs conditionObject = new SQLiteWhereArgs(conditions);
+        conditionObject.buildConfiguration();
+        String query = conditionObject.getQuery();
+        String[] whereArgs = conditionObject.getArguments();
+        return database.update(tableName, contentValues, query, whereArgs);
+    }
+
     private String[] getColumns(List<FieldConfig> fields) {
         List<String> fieldsNames = fields.stream().map(this::extractFieldName).collect(Collectors.toList());
-        return (String[]) fieldsNames.toArray();
+        String[] castObject = new String[fieldsNames.size()];
+        return fieldsNames.toArray(castObject);
     }
 
     private String extractFieldName(FieldConfig field) {
@@ -61,7 +81,7 @@ public class DatabaseAdapter {
                 Integer valueInt = cursor.getInt(columnIndex);
                 valuePair = fillValuePair(fieldName, valueInt, valuePair);
                 break;
-            case DatabaseVariables.NVARCHAR_255:
+            case DatabaseVariables.VARCHAR_255:
                 String valueStr = cursor.getString(columnIndex);
                 valuePair = fillValuePair(fieldName, valueStr, valuePair);
                 break;

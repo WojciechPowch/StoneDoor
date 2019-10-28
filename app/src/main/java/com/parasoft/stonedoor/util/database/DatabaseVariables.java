@@ -1,6 +1,6 @@
 package com.parasoft.stonedoor.util.database;
 
-enum DatabaseVariables {
+public enum DatabaseVariables {
     DATABASE_NAME {
         public String getValue() {
             return "STONE_DOOR";
@@ -27,20 +27,20 @@ enum DatabaseVariables {
         public FieldConfig getColumnConfig() {
             return new FieldConfig().
                     setFieldName("login").
-                    setFieldDataType(NVARCHAR_255);
+                    setFieldDataType(VARCHAR_255);
         }
     },
     PASSWORD_COLUMN {
         public FieldConfig getColumnConfig() {
             return new FieldConfig().
                     setFieldName("password").
-                    setFieldDataType(NVARCHAR_255);
+                    setFieldDataType(VARCHAR_255);
         }
     };
 
     public static final String PRIMARY_KEY = "INTEGER PRIMARY KEY AUTOINCREMENT";
     public static final String INTEGER = "INTEGER";
-    public static final String NVARCHAR_255 = "VARCHAR(255)";
+    public static final String VARCHAR_255 = "VARCHAR(255)";
 
     public <T extends Object> T getValue() {
         return (T) emptyObject();

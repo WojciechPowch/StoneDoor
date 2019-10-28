@@ -6,7 +6,7 @@ import java.util.stream.IntStream;
 public class SQLBuilder {
     private StringBuilder queryStringBuilder;
 
-    private final String OPEN_QUOTE = "(";
+    private final String OPEN_QUOTE = " (";
     private final String CLOSE_QUOTE = ")";
     private final String COMMA = ", ";
     private final String SPACE = " ";
