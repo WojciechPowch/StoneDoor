@@ -5,6 +5,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import androidx.annotation.NonNull;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -17,7 +19,7 @@ public class DatabaseAdapter {
         this.databaseHelper = new DatabaseHelper(context);
     }
 
-    public void insertData(String tableName, InsertData insertData) {
+    public void insertData(String tableName, @NonNull InsertData insertData) {
         SQLiteDatabase sqLiteDatabase = databaseHelper.getWritableDatabase();
         ContentValues contentValues = insertData.getContentValues();
         sqLiteDatabase.insert(tableName, null, contentValues);

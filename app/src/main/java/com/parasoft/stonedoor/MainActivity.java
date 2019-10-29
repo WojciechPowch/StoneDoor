@@ -2,6 +2,7 @@ package com.parasoft.stonedoor;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -22,6 +23,7 @@ public class MainActivity extends AppCompatActivity implements PsActivity {
         standardAction();
         setFields();
         checkToShowAddAccountButton();
+        addButtonActions();
     }
 
     @Override
@@ -39,8 +41,24 @@ public class MainActivity extends AppCompatActivity implements PsActivity {
     }
 
     private void checkToShowAddAccountButton() {
-        if (helper.checkIfAnyUserExists()) {
+        if (!helper.checkIfAnyUserExists()) {
             this.addAccountButton.setEnabled(false);
         }
+    }
+
+    private void addButtonActions() {
+        createNewAccountAction();
+    }
+
+    private void createNewAccountAction() {
+        MainActivity context = this;
+        this.addAccountButton.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        startActivity(new Intent(MainActivity.this, CreateNewAccountActivity.class));
+                    }
+                }
+        );
     }
 }
