@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.parasoft.stonedoor.helpers.MainActivityHelper;
 import com.parasoft.stonedoor.util.activitymodels.PsActivity;
 
 public class MainActivity extends AppCompatActivity implements PsActivity {

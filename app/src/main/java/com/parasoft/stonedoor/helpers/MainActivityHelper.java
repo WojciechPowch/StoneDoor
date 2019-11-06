@@ -1,4 +1,4 @@
-package com.parasoft.stonedoor;
+package com.parasoft.stonedoor.helpers;
 
 import android.content.Context;
 
